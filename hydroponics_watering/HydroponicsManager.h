@@ -24,6 +24,7 @@ class HydroponicsManager : public TickObject {
     WaterDetector* flood_complete_detector;
     WaterDetector* drain_complete_detector;
     Relay* pump;
+    Relay* valve;
 
     TickObjectList* getObjectList();
     void tick(unsigned int diff);

@@ -5,11 +5,17 @@
 #include "StateDrain.hpp"
 #include "StateIdle.hpp"
 
+RTC_DATA_ATTR int deepSleepCounter = 0;
+
+// sleep 3 times, totals to 3 hours
+#define DEEP_SLEEP_MAX 3
+
 HydroponicsManager::HydroponicsManager() {
   this->light_diode = new LightDiode();
   this->flood_complete_detector = new WaterDetector(PIN_SENSOR_FLOOD_COMPLETE, FLOOD_THRESHOLD);
   this->drain_complete_detector = new WaterDetector(PIN_SENSOR_DRAIN_COMPLETE, DRAIN_THRESHOLD);
   this->pump = new Relay(PIN_PUMP);
+  this->valve = new Relay(PIN_VALVE);
 
   byte objectCount = 3;
   this->objectList = new TickObjectList(objectCount);
@@ -50,14 +56,31 @@ void HydroponicsManager::tick(unsigned int diff) {
 void HydroponicsManager::initialize() {
   Serial.println("initialize()");
   this->isInitialized = true;
-
-  // When the drain detector says it's watered, let the system drain. Otherwise fill.
-  if (this->drain_complete_detector->getIsWatered()) {
-    Serial.println("drain water detected, draining...");
-    this->setState(STATE_DRAIN);
+  
+  esp_sleep_wakeup_cause_t wakeup_reason;
+  wakeup_reason = esp_sleep_get_wakeup_cause();
+  if (wakeup_reason == ESP_SLEEP_WAKEUP_TIMER) {
+    Serial.println("woke up from deep sleep.");
+    deepSleepCounter++;
+    if (deepSleepCounter < DEEP_SLEEP_MAX) {
+      Serial.printf("deep sleep %d...", deepSleepCounter);
+      Serial.println();
+      this->setState(STATE_IDLE);
+      return;
+    } else {
+      Serial.println("deep sleep finished");
+      ESP.restart();
+    }
   } else {
-    Serial.println("filling...");
-    this->setState(STATE_FILL);
+    deepSleepCounter = 0;
+
+    if (this->drain_complete_detector->getIsWatered()) {
+      Serial.println("drain water detected, draining...");
+      this->setState(STATE_DRAIN);
+    } else {
+      Serial.println("filling...");
+      this->setState(STATE_FILL);
+    }
   }
 }
 

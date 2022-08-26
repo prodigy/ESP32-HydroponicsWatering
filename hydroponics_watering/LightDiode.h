@@ -2,7 +2,7 @@
 #define LIGHTDIODE_H
 
 #include "TickObject.hpp"
-#include "TimeIntervalGuard.h"
+#include "TimeIntervalGuard.hpp"
 
 #define RGB_RED 4
 #define RGB_GREEN 2
@@ -27,6 +27,7 @@ class LightDiode : public TickObject {
     static const byte COLOUR_BLUE = 4;
     static const byte COLOUR_YELLOW = COLOUR_RED | COLOUR_GREEN;
     static const byte COLOUR_PURPLE = COLOUR_RED | COLOUR_BLUE;
+    static const byte COLOUR_TEAL = COLOUR_GREEN | COLOUR_BLUE;
     static const byte COLOUR_WHITE = COLOUR_RED | COLOUR_GREEN | COLOUR_BLUE;
     static const byte COLOUR_OFF = 0;
 

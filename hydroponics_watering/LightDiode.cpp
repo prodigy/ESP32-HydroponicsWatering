@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "LightDiode.h"
-#include "TimeIntervalGuard.h"
+#include "TimeIntervalGuard.hpp"
 
 LightDiode::LightDiode() {
   pinMode(RGB_RED, OUTPUT);

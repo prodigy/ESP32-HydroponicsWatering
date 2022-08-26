@@ -2,7 +2,7 @@
 
 #include "TickObject.hpp"
 #include "TickObjectList.h"
-#include "TimeIntervalGuard.h"
+#include "TimeIntervalGuard.hpp"
 #include "WaterDetector.h"
 #include "LightDiode.h"
 #include "Relay.hpp"
@@ -13,6 +13,8 @@
 unsigned int lastTick = 0;
 HydroponicsManager* hydroponics_manager;
 
+#define TICK_INTERVAL 10
+
 void setup() {
   Serial.begin(115200);
   Serial.println("startup");
@@ -22,7 +24,7 @@ void setup() {
 void loop() {
   unsigned int diff = getDiff();
   hydroponics_manager->tick(diff);  
-  delay(100);
+  delay(TICK_INTERVAL);
 }
 
 unsigned int getDiff() {

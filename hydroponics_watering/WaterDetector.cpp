@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "WaterDetector.h"
-#include "TimeIntervalGuard.h"
+#include "TimeIntervalGuard.hpp"
 
 WaterDetector::WaterDetector(byte pin, float threshold) {
   this->pin = pin;

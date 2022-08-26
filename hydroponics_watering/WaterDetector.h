@@ -2,7 +2,7 @@
 #define WATERDETECTOR_H
 
 #include "TickObject.hpp"
-#include "TimeIntervalGuard.h"
+#include "TimeIntervalGuard.hpp"
 
 #define MEASURE_SAMPLE_SIZE 8
 #define MEASURE_INTERVAL_DEFAULT 500

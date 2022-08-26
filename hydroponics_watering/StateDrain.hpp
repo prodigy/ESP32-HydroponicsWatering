@@ -4,9 +4,6 @@
 #include "State.hpp"
 #include "LightDiode.h"
 
-#define FILL_TIME_WAIT_CHECK 10000
-#define FILL_MAX_RETRY 1
-
 class StateDrain : public State {
   public:
     StateDrain(HydroponicsManager* manager) : State(manager) {

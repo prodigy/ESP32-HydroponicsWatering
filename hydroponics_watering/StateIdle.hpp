@@ -4,7 +4,7 @@
 #include "State.hpp"
 #include "LightDiode.h"
 
-#define IDLE_TIME_WAIT 10800*1000
+static const unsigned long IDLE_TIME_SLEEP=3600*1000*1000; // 1 hour
 
 class StateIdle : public State {
   public:
@@ -16,8 +16,10 @@ class StateIdle : public State {
     ~StateIdle() {
     }
     void tick(unsigned int diff) {
-      Serial.println("going to sleep...");
-      esp_sleep_enable_timer_wakeup((IDLE_TIME_WAIT - millis())*1000);
+      unsigned long operatingTime = micros();
+      unsigned long timeSleep = (operatingTime > IDLE_TIME_SLEEP) ? 1 : IDLE_TIME_SLEEP - operatingTime;
+      Serial.printf("going to sleep for %lu (%lu/%x) seconds... (operating time was: %lu)", timeSleep/1000/1000, timeSleep, timeSleep, operatingTime/1000/1000);
+      esp_sleep_enable_timer_wakeup(timeSleep);
       esp_deep_sleep_start();
       // End of program. Board goes into sleep mode.
     }
