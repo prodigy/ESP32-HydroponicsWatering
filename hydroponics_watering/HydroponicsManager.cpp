@@ -7,8 +7,8 @@
 
 RTC_DATA_ATTR int deepSleepCounter = 0;
 
-// sleep 3 times, totals to 3 hours
-#define DEEP_SLEEP_MAX 3
+// sleep 2 times, totals to 2 hours
+#define DEEP_SLEEP_MAX 2
 
 HydroponicsManager::HydroponicsManager() {
   this->light_diode = new LightDiode();
