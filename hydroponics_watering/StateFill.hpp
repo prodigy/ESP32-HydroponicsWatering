@@ -5,7 +5,7 @@
 #include "LightDiode.h"
 
 #define FILL_TIME_WAIT_CHECK 15000
-#define FILL_TIME_WAIT_BEFORE_DRAIN 120000
+#define FILL_TIME_WAIT_BEFORE_DRAIN 480000
 
 static const byte FILL_STATE_BEGIN = 0;
 static const byte FILL_STATE_PUMP = 1;
