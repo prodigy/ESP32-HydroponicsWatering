@@ -128,7 +128,7 @@ class StateFill : public State {
         Serial.println("Finished Filling!");
         this->interval->setEnabled(false);
         this->manager->valve->setActive(false);
-        this->manager->setState(STATE_DRAIN);
+        this->manager->setState(STATE_IDLE);
       }
     }
 };

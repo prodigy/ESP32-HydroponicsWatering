@@ -9,7 +9,6 @@
 #include "State.hpp"
 
 static const byte STATE_FILL = 0;
-static const byte STATE_DRAIN = 1;
 static const byte STATE_IDLE = 2;
 
 // Declare state, resolves circular reference issue.
@@ -22,7 +21,6 @@ class HydroponicsManager : public TickObject {
 
     LightDiode* light_diode;
     WaterDetector* flood_complete_detector;
-    WaterDetector* drain_complete_detector;
     Relay* pump;
     Relay* valve;
 
